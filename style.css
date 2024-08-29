@@ -1,99 +1,137 @@
+:root{
+
+}
 body{
-    background-color: rgba(16, 0, 37, 0.973);
+    background-image: url('bg.jpg');
+    background-repeat:repeat;
+    /* background-size: cover; */
     margin: 0;
     padding: 0;
-    color: white;
-    position: relative;
 }
-nav{
-    background-color: rgba(48, 3, 107, 0.973);
-    height: 50px;
-    display: flex;
-    justify-content: space-around;
-    align-items: center;
-    z-index: -2; 
-}
-nav img{
-    height: 60px;
-    margin-left: 10px;
-}
-ul{
-    display: flex;
+.navbar ul li{
     list-style: none;
-    column-gap: 10px;
 }
-li{
-    width: 70px;
-    text-align: center;
-    font-size: 1.2rem;
-    padding: 8px;
-    background-color: rgba(16, 0, 37, 0.973);
-    border-radius: 5px;
-}
-a{
-    text-decoration: none;
-    color: white;
-    position: relative;
-}
-a::after{
-    content: '';
-    display: block;
-    width: 0;
-    height: 2px;
-    background: rgb(160, 21, 235);
-    transition: width 0.3s;
-}
-a:hover::after{
-    width: 100%;
-}
-a:hover{
-    color: rgb(160, 21, 235);
-}
-.head{
-    text-shadow: 5px 5px 10px rgba(0,0,0,0.5);
-    height: 50px;
+.navbar ul{
     display: flex;
     justify-content: center;
     align-items: center;
-
+    column-gap: 100px;
+    margin: 0;
+    padding: 0;
+    height: 100%;
 }
-h1{
-    font-size: 3rem;
+.navbar{
+    padding: 20px;
+    position: sticky;
+    top: 0;
+    width: 100vw;
+    height: 5vh;
+    background-color: rgba(0, 0, 0, 0.1);
+    backdrop-filter: blur(5px);
+}
+.navbar ul li a{
+    text-decoration: none;
+    color: white;
 }
 .about-me{
-    margin: 50px;
-    padding: 50px;
     display: flex;
     justify-content: space-around;
     align-items: center;
-    @media screen and (orientation: portrait){
-        flex-direction: column;  
-    }
+    background-color: rgba(255, 255, 255, 0.7);
+    width: 80vw;
+    height: 500px;
+    margin: 50px 10vw;
+    border-radius: 50px;
 }
-.image-container{
-    position: relative;
-    width: 280px;
-    height: 280px;
-}
-.image-container img{
-    width: 100%;
-    height: 100%;
+.img-container{
+    width: 250px;
+    height: 250px;
     border-radius: 50%;
-    object-fit: cover;
-    object-position: 0 -80px;
-    box-shadow: 0 0 500px 0px  rgba(58, 1, 132, 0.973);
-     
+    position: relative;
+    animation: slide 2s ease;
+}
+.img-container img{
+    object-fit: contain;
+    object-position: center;
+    width: 250px;
+    height: 250px;
+    border-radius: 50%;
+    z-index: 1;
+
+}
+.img-container::after{
+    content: '';
+    position: absolute;
+    width: 250px;
+    height: 250px;
+    border-radius: 50%;
+    left: 0;
+    top: 0;
+    box-shadow: 10px 0 5px 5px rgba(228, 31, 212, 0.5),
+                0 10px 5px 5px rgba(153, 18, 221, 0.5),
+                0 -10px 5px 5px rgba(66, 23, 207, 0.5),
+                -10px 0 5px 5px rgba(153, 32, 239, 0.5),
+                inset 10px 0 10px 1px rgba(228, 31, 212, 0.5),
+                inset 0 10px 10px 1px rgba(153, 18, 221, 0.5),
+                inset 0 -10px 10px 1px rgba(66, 23, 207, 0.5),
+                inset -10px 0 10px 1px rgba(153, 32, 239, 0.5);
+}
+.content{
+    width: 50%;
+
+}
+@keyframes slide{
+    from{
+        transform: translateX(-100%);
+    }
+    to{
+        transform: translateX(0);
+    }
     
 }
-.text{
-    width: 50%;
-    text-align: left;
-    padding: 20px;
-    box-shadow: 3px 3px 10px rgba(0,0,0,0.5);
-    @media screen and (orientation: portrait){
-        width: 80vw;
-        text-align: center;
+@keyframes slide2{
+    from{
+        transform: translateX(100%);
     }
+    to{
+        transform: translateX(0);
+    }
+    
+}
+.abt-content{
+    animation: slide2 2s ease;
+}
+.content h1{
+    font-size: 3rem;
+    color: #333;
+}
+.content h1 span{
+    background: url('wave text.jpg');
+    background-clip: text;
+    -webkit-text-fill-color: transparent;
+    animation: motion 3s infinite linear;
+}
+@keyframes motion {
+    from {
+        background-position: bottom left;
+    }
+    to{
+        background-position: bottom right;
+    }
+}
+.content h2{
+    font-size: 2rem;
+    color: #333;
+}
+.content h3{
+    font-size: 1.8rem;
+    color: #333;
+}
+.content p{
+    font-size: 1.2rem;
+}
+.education h2{
+    font-size: 3rem;
 }
 .education-container{
     width: 100vw;
@@ -111,24 +149,46 @@ h1{
     align-items: center;
     flex-direction: column;
     margin: 20px;
+    background-color: rgba(255, 255, 255, 0.7);
+    border-radius: 50px;
+    animation: appear ease;
+    animation-timeline: view();
+    animation-range: entry 0% cover 40%;
 }
-.content{
+.edu-content{
     width: 100%;
     display: flex;
     justify-content: space-around;
     align-items: center;
 }
-.content img{
+.edu-content img{
     object-fit: cover;
     object-fit: left;
     height: 200px;
     width: 200px;
+    animation: slide ease;
+    animation-timeline: view();
+    animation-range: entry 0% cover 30%;
 }
 .ug-content{
     flex-direction: row-reverse;
 }
-.content p{
+.edu-content p{
     width: 50%;
     text-align: left;
     padding: 20px;
+    animation: slide2 ease;
+    animation-timeline: view();
+    animation-range: entry 0% cover 30%;
+}
+@keyframes appear{
+    from{
+        opacity: 0;
+        scale: 0;
+    }
+    to{
+        opacity: 1;
+        scale: 1;
+    }
+    
 }
