@@ -109,6 +109,10 @@ body{
 }
 .abt-content{
     animation: slide2 2s ease;
+    @media screen and (orientation: portrait){
+        text-align: center;
+        width: 90%;
+    }
 }
 .content h1{
     font-size: 3rem;
@@ -169,6 +173,9 @@ body{
     display: flex;
     justify-content: space-around;
     align-items: center;
+    @media screen and (orientation: portrait){
+        flex-direction: column;
+    }
 }
 .edu-content img{
     object-fit: cover;
@@ -189,6 +196,9 @@ body{
     animation: slide2 ease;
     animation-timeline: view();
     animation-range: entry 0% cover 30%;
+    @media screen and (orientation: portrait){
+        width: 90%;
+    }
 }
 @keyframes appear{
     from{
