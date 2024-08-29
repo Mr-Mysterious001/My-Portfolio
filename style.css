@@ -2,7 +2,9 @@
 
 }
 body{
-    background: url('bg.jpg');
+    background-image: url('bg.jpg');
+    background-repeat:repeat;
+    /* background-size: cover; */
     margin: 0;
     padding: 0;
 }
@@ -21,22 +23,172 @@ body{
 .navbar{
     padding: 20px;
     position: sticky;
-    width: 100vw;
-    height: 8vh;
-    background-color: rgba(0, 0, 0, 0.1);
-    backdrop-filter: blur(20px);
-}
-/* .glass{
-    position: absolute;
-    width: 100vw;
-    height: 100%;
-    background-color: rgba(0, 0, 0, 0.1);
     top: 0;
-    left: 0;
-    backdrop-filter: blur(20px);
-    
-} */
+    width: 100vw;
+    height: 5vh;
+    background-color: rgba(0, 0, 0, 0.1);
+    backdrop-filter: blur(5px);
+}
 .navbar ul li a{
     text-decoration: none;
     color: white;
+}
+.about-me{
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+    background-color: rgba(255, 255, 255, 0.7);
+    width: 80vw;
+    height: 500px;
+    margin: 50px 10vw;
+    border-radius: 50px;
+}
+.img-container{
+    width: 250px;
+    height: 250px;
+    border-radius: 50%;
+    position: relative;
+    animation: slide 2s ease;
+}
+.img-container img{
+    object-fit: contain;
+    object-position: center;
+    width: 250px;
+    height: 250px;
+    border-radius: 50%;
+    z-index: 1;
+
+}
+.img-container::after{
+    content: '';
+    position: absolute;
+    width: 250px;
+    height: 250px;
+    border-radius: 50%;
+    left: 0;
+    top: 0;
+    box-shadow: 10px 0 5px 5px rgba(228, 31, 212, 0.5),
+                0 10px 5px 5px rgba(153, 18, 221, 0.5),
+                0 -10px 5px 5px rgba(66, 23, 207, 0.5),
+                -10px 0 5px 5px rgba(153, 32, 239, 0.5),
+                inset 10px 0 10px 1px rgba(228, 31, 212, 0.5),
+                inset 0 10px 10px 1px rgba(153, 18, 221, 0.5),
+                inset 0 -10px 10px 1px rgba(66, 23, 207, 0.5),
+                inset -10px 0 10px 1px rgba(153, 32, 239, 0.5);
+}
+.content{
+    width: 50%;
+
+}
+@keyframes slide{
+    from{
+        transform: translateX(-100%);
+    }
+    to{
+        transform: translateX(0);
+    }
+    
+}
+@keyframes slide2{
+    from{
+        transform: translateX(100%);
+    }
+    to{
+        transform: translateX(0);
+    }
+    
+}
+.abt-content{
+    animation: slide2 2s ease;
+}
+.content h1{
+    font-size: 3rem;
+    color: #333;
+}
+.content h1 span{
+    background: url('wave text.jpg');
+    background-clip: text;
+    -webkit-text-fill-color: transparent;
+    animation: motion 3s infinite linear;
+}
+@keyframes motion {
+    from {
+        background-position: bottom left;
+    }
+    to{
+        background-position: bottom right;
+    }
+}
+.content h2{
+    font-size: 2rem;
+    color: #333;
+}
+.content h3{
+    font-size: 1.8rem;
+    color: #333;
+}
+.content p{
+    font-size: 1.2rem;
+}
+.education h2{
+    font-size: 3rem;
+}
+.education-container{
+    width: 100vw;
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+    flex-direction: column;
+}
+.education-box{
+    width: 80%;
+    padding: 20px;
+    box-shadow: 3px 3px 10px rgba(0,0,0,0.5);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    margin: 20px;
+    background-color: rgba(255, 255, 255, 0.7);
+    border-radius: 50px;
+    animation: appear ease;
+    animation-timeline: view();
+    animation-range: entry 0% cover 40%;
+}
+.edu-content{
+    width: 100%;
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+}
+.edu-content img{
+    object-fit: cover;
+    object-fit: left;
+    height: 200px;
+    width: 200px;
+    animation: slide ease;
+    animation-timeline: view();
+    animation-range: entry 0% cover 30%;
+}
+.ug-content{
+    flex-direction: row-reverse;
+}
+.edu-content p{
+    width: 50%;
+    text-align: left;
+    padding: 20px;
+    animation: slide2 ease;
+    animation-timeline: view();
+    animation-range: entry 0% cover 30%;
+}
+@keyframes appear{
+    from{
+        opacity: 0;
+        scale: 0;
+    }
+    to{
+        opacity: 1;
+        scale: 1;
+    }
+    
 }
