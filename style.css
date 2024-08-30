@@ -74,6 +74,10 @@ h2 span {
   margin: 0;
   padding: 0;
   height: 100%;
+  @media screen and (orientation: portrait) {
+    column-gap: 20px;
+    
+  }
 }
 .navbar {
   padding: 20px 0;
@@ -103,6 +107,7 @@ h2 span {
     flex-direction: column;
     height: 100%;
     width: 96vw;
+    margin: 20px 2vw;
   }
 }
 .img-container {
@@ -145,6 +150,7 @@ h2 span {
   @media screen and (orientation: portrait) {
     width: 90%;
     text-align: center;
+    margin: 10px 0;
   }
 }
 @keyframes slide {
@@ -165,6 +171,12 @@ h2 span {
 }
 .abt-content {
   animation: slide2 2s ease;
+}
+.abt-content h2{
+    text-align: left;
+    @media screen and (orientation: portrait) {
+        text-align: center;   
+    }
 }
 .content h1 {
   font-size: 3rem;
@@ -374,3 +386,9 @@ h2 span {
   scale: 1.15;
   border-collapse: collapse;
 }
+
+/* * {
+    background: #000 !important;
+    color: #0f0 !important;
+    outline: solid #f00 1px !important;
+  } */
