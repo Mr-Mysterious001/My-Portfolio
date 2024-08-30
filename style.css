@@ -76,7 +76,7 @@ h2 span {
   height: 100%;
 }
 .navbar {
-  padding: 20px;
+  padding: 20px 0;
   position: sticky;
   top: 0;
   width: 100vw;
@@ -102,6 +102,7 @@ h2 span {
   @media screen and (orientation: portrait) {
     flex-direction: column;
     height: 100%;
+    width: 96vw;
   }
 }
 .img-container {
@@ -141,6 +142,10 @@ h2 span {
 }
 .content {
   width: 50%;
+  @media screen and (orientation: portrait) {
+    width: 90%;
+    text-align: center;
+  }
 }
 @keyframes slide {
   from {
@@ -160,10 +165,6 @@ h2 span {
 }
 .abt-content {
   animation: slide2 2s ease;
-  @media screen and (orientation: portrait) {
-    text-align: center;
-    width: 90%;
-  }
 }
 .content h1 {
   font-size: 3rem;
@@ -253,6 +254,7 @@ h2 span {
   animation-range: entry 0% cover 30%;
   @media screen and (orientation: portrait) {
     width: 90%;
+    text-align: center;
   }
 }
 .animation {
@@ -284,6 +286,11 @@ h2 span {
   margin: 50px 25vw;
   background-color: rgba(255, 255, 255, 0.7);
   border-radius: 50px;
+  @media screen and (orientation: portrait) {
+    width: 90vw;
+    margin: 50px 5vw;
+    
+  }
 }
 .skill-box {
   animation: appear2 ease forwards;
