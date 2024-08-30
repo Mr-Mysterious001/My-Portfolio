@@ -240,6 +240,9 @@ h2 span {
 }
 .ug-content {
   flex-direction: row-reverse;
+  @media screen and (orientation: portrait) {
+    flex-direction: column;
+  }
 }
 .edu-content p {
   width: 50%;
@@ -252,11 +255,10 @@ h2 span {
     width: 90%;
   }
 }
-.animation{
-    animation: appear ease;
-    animation-timeline: view();
-    animation-range: entry 0% cover 40%;
-
+.animation {
+  animation: appear ease;
+  animation-timeline: view();
+  animation-range: entry 0% cover 40%;
 }
 @keyframes appear {
   from {
@@ -268,23 +270,100 @@ h2 span {
     scale: 1;
   }
 }
-.skill-box img{
-    width: 50px;
-    height: 50px;
-    object-fit: cover;
+.skill-box img {
+  width: 70px;
+  height: 70px;
+  object-fit: cover;
 }
-.skills{
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    flex-wrap: wrap;
-    width: 50vw;
-    margin: 50px 25vw;
-    background-color: rgba(255, 255, 255, 0.7);
+.skills {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-wrap: wrap;
+  width: 50vw;
+  margin: 50px 25vw;
+  background-color: rgba(255, 255, 255, 0.7);
+  border-radius: 50px;
 }
-.skill-box{
-    animation: appear ease;
-    animation-timeline: view();
-    animation-range: entry 20% cover 40%;
-    margin: 20px;
+.skill-box {
+  animation: appear2 ease forwards;
+  animation-timeline: view();
+  animation-range: entry 10% cover 40%;
+  margin: 20px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  padding: 20px;
+  position: relative;
+  overflow: hidden;
+  border: 2px solid;
+  border-color: rgba(96, 7, 56, 0.4);
+  border-radius: 30px;
+}
+@keyframes appear2 {
+  from {
+    scale: 0;
+  }
+  to {
+    transition: transform;
+    transform: rotate(360deg);
+  }
+}
+.skill-box::before {
+  position: absolute;
+  content: "";
+  display: block;
+  width: 102px;
+  height: 120px;
+  z-index: -1;
+  border-radius: 30px;
+}
+
+.skill-box::after {
+  position: absolute;
+  content: "";
+  display: block;
+  width: 60px;
+  height: 200px;
+  background: black;
+  z-index: -2;
+  transform: rotate(45deg);
+  background: linear-gradient(
+    to right,
+    rgb(2, 173, 122),
+    rgb(0, 67, 111),
+    rgb(2, 54, 145)
+  );
+  visibility: hidden;
+}
+@keyframes repeat {
+  from {
+    transform: rotate(45deg);
+  }
+  to {
+    transform: rotate(405deg);
+  }
+}
+.skill-box:hover::after {
+  visibility: visible;
+  animation: repeat 4s linear infinite reverse;
+}
+.skill-box:hover::before {
+  background: linear-gradient(
+    45deg,
+    rgb(141, 143, 92),
+    rgb(128, 136, 103),
+    rgb(129, 145, 113)
+  );
+}
+.skill-box:hover {
+  box-shadow: 10px 0 20px 5px rgba(2, 173, 122, 0.5),
+    0 10px 20px 5px rgba(0, 67, 111, 0.5),
+    0 -10px 20px 5px rgba(2, 54, 145, 0.5),
+    inset 10px 0 20px 5px rgba(228, 31, 212, 1),
+    inset 0 10px 20px 5px rgba(0, 255, 119, 1),
+    inset 0 -10px 20px 5px rgba(66, 23, 207, 1);
+  scale: 1.15;
+  border-collapse: collapse;
 }
