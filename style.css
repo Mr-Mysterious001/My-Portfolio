@@ -1,249 +1,290 @@
-:root{
-
+body {
+  background-image: url("bg.jpg");
+  background-repeat: repeat;
+  /* background-size: cover; */
+  margin: 0;
+  padding: 0;
 }
-body{
-    background-image: url('bg.jpg');
-    background-repeat:repeat;
-    /* background-size: cover; */
-    margin: 0;
-    padding: 0;
+h2 {
+  text-align: center;
+  font-size: 3rem;
 }
-.shadow{
-    box-shadow: 5px 5px 10px 3px rgba(0,0,0,0.5);
+h2 span {
+  background: linear-gradient(
+    45deg,
+    rgba(0, 255, 102, 0.5),
+    rgba(0, 255, 217, 0.5),
+    rgba(0, 149, 255, 0.5),
+    rgba(0, 255, 183, 0.5)
+  );
+  background-clip: text;
+  -webkit-text-fill-color: transparent;
 }
-.navbar ul li{
-    list-style: none;
+.shadow {
+  box-shadow: 5px 5px 10px 3px rgba(0, 0, 0, 0.5);
 }
-.navbar ul li a{
-    text-decoration: none;
-    color: white;
+.navbar ul li {
+  list-style: none;
 }
-.navbar ul li a:hover{
-    background: linear-gradient(45deg, rgba(191, 0, 255, 0.5), rgba(247, 0, 255, 0.5), rgba(157, 0, 255, 0.5), rgba(123, 0, 255, 0.5));
-    background-clip: text;
-    -webkit-text-fill-color: transparent;
+.navbar ul li a {
+  text-decoration: none;
+  color: white;
 }
-.navbar ul li a:after{
-    content: '';
-    display: block;
+.navbar ul li a:hover {
+  background: linear-gradient(
+    45deg,
+    rgba(191, 0, 255, 0.5),
+    rgba(247, 0, 255, 0.5),
+    rgba(157, 0, 255, 0.5),
+    rgba(123, 0, 255, 0.5)
+  );
+  background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+.navbar ul li a:after {
+  content: "";
+  display: block;
+  width: 0;
+  height: 2px;
+  background: white;
+}
+.navbar ul li a:hover:after {
+  animation: underline 0.5s ease forwards;
+}
+@keyframes underline {
+  from {
     width: 0;
-    height: 2px;
-    background: white;
+  }
+  to {
+    width: 100%;
+    background: linear-gradient(
+      45deg,
+      rgba(191, 0, 255, 0.5),
+      rgba(247, 0, 255, 0.5),
+      rgba(157, 0, 255, 0.5),
+      rgba(123, 0, 255, 0.5)
+    );
+  }
 }
-.navbar ul li a:hover:after{
-    animation: underline 0.5s ease forwards; 
+.navbar ul {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  column-gap: 100px;
+  margin: 0;
+  padding: 0;
+  height: 100%;
 }
-@keyframes underline{
-    from{
-        width: 0;
-    }
-    to{
-        width: 100%;
-        background: linear-gradient(45deg, rgba(191, 0, 255, 0.5), rgba(247, 0, 255, 0.5), rgba(157, 0, 255, 0.5), rgba(123, 0, 255, 0.5));
-    }
-    
+.navbar {
+  padding: 20px;
+  position: sticky;
+  top: 0;
+  width: 100vw;
+  height: 5vh;
+  background-color: rgba(0, 0, 0, 0.4);
+  backdrop-filter: blur(5px);
+  z-index: 10;
 }
-.navbar ul{
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    column-gap: 100px;
-    margin: 0;
-    padding: 0;
+.navbar ul li a {
+  text-decoration: none;
+  color: white;
+}
+.about-me {
+  display: flex;
+  position: relative;
+  justify-content: space-around;
+  align-items: center;
+  background-color: rgba(255, 255, 255, 0.7);
+  width: 80vw;
+  height: 500px;
+  margin: 50px 10vw;
+  border-radius: 50px;
+  @media screen and (orientation: portrait) {
+    flex-direction: column;
     height: 100%;
+  }
 }
-.navbar{
-    padding: 20px;
-    position: sticky;
-    top: 0;
-    width: 100vw;
-    height: 5vh;
-    background-color: rgba(0, 0, 0, 0.4);
-    backdrop-filter: blur(5px);
-    z-index: 10;
+.img-container {
+  width: 250px;
+  height: 250px;
+  border-radius: 50%;
+  position: relative;
+  animation: slide 2s ease;
+  @media screen and (orientation: portrait) {
+    margin-top: 50px;
+  }
 }
-.navbar ul li a{
-    text-decoration: none;
-    color: white;
+.img-container img {
+  object-fit: contain;
+  object-position: center;
+  width: 250px;
+  height: 250px;
+  border-radius: 50%;
+  z-index: 1;
 }
-.about-me{
-    display: flex;
-    position: relative;
-    justify-content: space-around;
-    align-items: center;
-    background-color: rgba(255, 255, 255, 0.7);
-    width: 80vw;
-    height: 500px;
-    margin: 50px 10vw;
-    border-radius: 50px;
-    @media screen and (orientation: portrait){
-        flex-direction: column;
-        height: 100%;  
-    }
+.img-container::after {
+  content: "";
+  position: absolute;
+  width: 250px;
+  height: 250px;
+  border-radius: 50%;
+  left: 0;
+  top: 0;
+  box-shadow: 10px 0 5px 5px rgba(228, 31, 212, 0.5),
+    0 10px 5px 5px rgba(0, 255, 119, 0.5),
+    0 -10px 5px 5px rgba(66, 23, 207, 0.5),
+    -10px 0 5px 5px rgba(0, 255, 217, 0.5),
+    inset 10px 0 10px 1px rgba(228, 31, 212, 0.5),
+    inset 0 10px 10px 1px rgba(0, 255, 119, 0.5),
+    inset 0 -10px 10px 1px rgba(66, 23, 207, 0.5),
+    inset -10px 0 10px 1px rgba(153, 32, 239, 0.5);
 }
-.img-container{
-    width: 250px;
-    height: 250px;
-    border-radius: 50%;
-    position: relative;
-    animation: slide 2s ease;
-    @media screen and (orientation: portrait){
-        margin-top: 50px;
-    }
+.content {
+  width: 50%;
 }
-.img-container img{
-    object-fit: contain;
-    object-position: center;
-    width: 250px;
-    height: 250px;
-    border-radius: 50%;
-    z-index: 1;
-
+@keyframes slide {
+  from {
+    transform: translateX(-100%);
+  }
+  to {
+    transform: translateX(0);
+  }
 }
-.img-container::after{
-    content: '';
-    position: absolute;
-    width: 250px;
-    height: 250px;
-    border-radius: 50%;
-    left: 0;
-    top: 0;
-    box-shadow: 10px 0 5px 5px rgba(228, 31, 212, 0.5),
-                0 10px 5px 5px rgba(153, 18, 221, 0.5),
-                0 -10px 5px 5px rgba(66, 23, 207, 0.5),
-                -10px 0 5px 5px rgba(153, 32, 239, 0.5),
-                inset 10px 0 10px 1px rgba(228, 31, 212, 0.5),
-                inset 0 10px 10px 1px rgba(153, 18, 221, 0.5),
-                inset 0 -10px 10px 1px rgba(66, 23, 207, 0.5),
-                inset -10px 0 10px 1px rgba(153, 32, 239, 0.5);
+@keyframes slide2 {
+  from {
+    transform: translateX(100%);
+  }
+  to {
+    transform: translateX(0);
+  }
 }
-.content{
-    width: 50%;
-
+.abt-content {
+  animation: slide2 2s ease;
+  @media screen and (orientation: portrait) {
+    text-align: center;
+    width: 90%;
+  }
 }
-@keyframes slide{
-    from{
-        transform: translateX(-100%);
-    }
-    to{
-        transform: translateX(0);
-    }
-    
+.content h1 {
+  font-size: 3rem;
+  color: #333;
 }
-@keyframes slide2{
-    from{
-        transform: translateX(100%);
-    }
-    to{
-        transform: translateX(0);
-    }
-    
-}
-.abt-content{
-    animation: slide2 2s ease;
-    @media screen and (orientation: portrait){
-        text-align: center;
-        width: 90%;
-    }
-}
-.content h1{
-    font-size: 3rem;
-    color: #333;
-}
-.content h1 span{
-    background: url('wave text.jpg');
-    background-clip: text;
-    -webkit-text-fill-color: transparent;
-    animation: motion 3s infinite linear;
+.content h1 span {
+  background: url("wave text.jpg");
+  background-clip: text;
+  -webkit-text-fill-color: transparent;
+  animation: motion 3s infinite linear;
 }
 @keyframes motion {
-    from {
-        background-position: bottom left;
-    }
-    to{
-        background-position: bottom right;
-    }
+  from {
+    background-position: bottom left;
+  }
+  to {
+    background-position: bottom right;
+  }
 }
-.content h2{
-    font-size: 2rem;
-    color: #333;
+.content h2 {
+  font-size: 2rem;
+  color: #333;
 }
-.education-box h3{
-    font-size: 1.8rem;
-    color: #333;
+.education-box h3 {
+  font-size: 1.8rem;
+  color: #333;
 }
-.content p{
-    font-size: 1.2rem;
+.content p {
+  font-size: 1.2rem;
 }
-.education h2{
-    font-size: 3rem;
+.education h2 {
+  font-size: 3rem;
 }
-.education-container{
-    width: 100vw;
-    display: flex;
-    justify-content: space-around;
-    align-items: center;
+.education-container {
+  width: 100vw;
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+  flex-direction: column;
+}
+.education-box {
+  width: 80%;
+  padding: 20px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  margin: 20px;
+  background-color: rgba(255, 255, 255, 0.7);
+  border-radius: 50px;
+}
+.edu-content {
+  width: 100%;
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+  @media screen and (orientation: portrait) {
     flex-direction: column;
+  }
 }
-.education-box{
-    width: 80%;
-    padding: 20px;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    flex-direction: column;
-    margin: 20px;
-    background-color: rgba(255, 255, 255, 0.7);
-    border-radius: 50px;
+.edu-content img {
+  object-fit: cover;
+  object-fit: left;
+  height: 200px;
+  width: 200px;
+  border-radius: 10px;
+  margin-bottom: 20px;
+  animation: slide ease;
+  animation-timeline: view();
+  animation-range: entry 0% cover 30%;
+  @media screen and (orientation: portrait) {
+    margin-top: 20px;
+  }
+}
+.ug-content {
+  flex-direction: row-reverse;
+}
+.edu-content p {
+  width: 50%;
+  text-align: left;
+  padding: 20px;
+  animation: slide2 ease;
+  animation-timeline: view();
+  animation-range: entry 0% cover 30%;
+  @media screen and (orientation: portrait) {
+    width: 90%;
+  }
+}
+.animation{
     animation: appear ease;
     animation-timeline: view();
     animation-range: entry 0% cover 40%;
+
 }
-.edu-content{
-    width: 100%;
-    display: flex;
-    justify-content: space-around;
-    align-items: center;
-    @media screen and (orientation: portrait){
-        flex-direction: column;
-    }
+@keyframes appear {
+  from {
+    opacity: 0;
+    scale: 0;
+  }
+  to {
+    opacity: 1;
+    scale: 1;
+  }
 }
-.edu-content img{
+.skill-box img{
+    width: 50px;
+    height: 50px;
     object-fit: cover;
-    object-fit: left;
-    height: 200px;
-    width: 200px;
-    border-radius: 10px;
-    margin-bottom: 20px;
-    animation: slide ease;
+}
+.skills{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-wrap: wrap;
+    width: 50vw;
+    margin: 50px 25vw;
+    background-color: rgba(255, 255, 255, 0.7);
+}
+.skill-box{
+    animation: appear ease;
     animation-timeline: view();
-    animation-range: entry 0% cover 30%;
-    @media screen and (orientation: portrait){
-        margin-top: 20px;
-    }
-}
-.ug-content{
-    flex-direction: row-reverse;
-}
-.edu-content p{
-    width: 50%;
-    text-align: left;
-    padding: 20px;
-    animation: slide2 ease;
-    animation-timeline: view();
-    animation-range: entry 0% cover 30%;
-    @media screen and (orientation: portrait){
-        width: 90%;
-    }
-}
-@keyframes appear{
-    from{
-        opacity: 0;
-        scale: 0;
-    }
-    to{
-        opacity: 1;
-        scale: 1;
-    }
-    
+    animation-range: entry 20% cover 40%;
+    margin: 20px;
 }
