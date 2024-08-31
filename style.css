@@ -76,7 +76,6 @@ h2 span {
   height: 100%;
   @media screen and (orientation: portrait) {
     column-gap: 20px;
-    
   }
 }
 .navbar {
@@ -172,17 +171,43 @@ h2 span {
 .abt-content {
   animation: slide2 2s ease;
 }
-.abt-content h2{
-    text-align: left;
-    @media screen and (orientation: portrait) {
-        text-align: center;   
-    }
+.abt-content span {
+  text-align: left;
+  @media screen and (orientation: portrait) {
+    text-align: center;
+  }
+}
+.wrapper {
+  display: flex;
+  height: 37px;
+  overflow: hidden;
+  column-gap: 10px;
+}
+.scroll {
+  font-size: 2rem;
+  color: #333;
+}
+.scroll-text span {
+  position: relative;
+  top: 0;
+  font-size: 32px;
+  list-style: none;
+  animation: scroll 15s steps(5) infinite;
+  background: linear-gradient(45deg, rgb(0, 170, 255),rgb(0, 72, 255),rgb(0, 68, 255));;
+}
+@keyframes scroll {
+  100% {
+    top: -188px;
+  }
+  0% {
+    top: 0;
+  }
 }
 .content h1 {
   font-size: 3rem;
   color: #333;
 }
-.content h1 span {
+.abt-content h1 span {
   background: url("wave text.jpg");
   background-clip: text;
   -webkit-text-fill-color: transparent;
@@ -301,7 +326,6 @@ h2 span {
   @media screen and (orientation: portrait) {
     width: 90vw;
     margin: 50px 5vw;
-    
   }
 }
 .skill-box {
@@ -386,9 +410,3 @@ h2 span {
   scale: 1.15;
   border-collapse: collapse;
 }
-
-/* * {
-    background: #000 !important;
-    color: #0f0 !important;
-    outline: solid #f00 1px !important;
-  } */
