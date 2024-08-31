@@ -1,6 +1,8 @@
+@import url('https://fonts.googleapis.com/css2?family=Handjet:wght@100..900&family=Sevillana&display=swap');
 body {
   background-image: url("bg.jpg");
   background-repeat: repeat;
+  
   /* background-size: cover; */
   margin: 0;
   padding: 0;
@@ -98,9 +100,9 @@ h2 span {
   justify-content: space-around;
   align-items: center;
   background-color: rgba(255, 255, 255, 0.7);
-  width: 80vw;
+  width: 86vw;
   height: 500px;
-  margin: 50px 10vw;
+  margin: 50px 7vw;
   border-radius: 50px;
   @media screen and (orientation: portrait) {
     flex-direction: column;
@@ -173,15 +175,14 @@ h2 span {
 }
 .abt-content span {
   text-align: left;
-  @media screen and (orientation: portrait) {
-    text-align: center;
-  }
+
 }
 .wrapper {
   display: flex;
   height: 37px;
   overflow: hidden;
   column-gap: 10px;
+  text-align: left;
 }
 .scroll {
   font-size: 2rem;
@@ -193,7 +194,11 @@ h2 span {
   font-size: 32px;
   list-style: none;
   animation: scroll 15s steps(5) infinite;
-  background: linear-gradient(45deg, rgb(0, 170, 255),rgb(0, 72, 255),rgb(0, 68, 255));;
+  background: linear-gradient(45deg, rgb(0, 170, 255),rgb(0, 72, 255),rgb(0, 68, 255));
+  @media screen and (orientation: portrait) {
+    
+    
+  }
 }
 @keyframes scroll {
   100% {
@@ -206,6 +211,8 @@ h2 span {
 .content h1 {
   font-size: 3rem;
   color: #333;
+  font-family: "Handjet", sans-serif;
+  font-optical-sizing: auto;
 }
 .abt-content h1 span {
   background: url("wave text.jpg");
@@ -409,4 +416,32 @@ h2 span {
     inset 0 -10px 20px 5px rgba(66, 23, 207, 1);
   scale: 1.15;
   border-collapse: collapse;
+}
+.project {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-wrap: wrap;
+  width: 50vw;
+  margin: 50px 25vw;
+  background-color: rgba(255, 255, 255, 0.7);
+  border-radius: 50px;
+  @media screen and (orientation: portrait) {
+    width: 90vw;
+    margin: 50px 5vw;
+  }
+}
+.contact{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-wrap: wrap;
+    width: 50vw;
+    margin: 50px 25vw;
+    background-color: rgba(255, 255, 255, 0.7);
+    border-radius: 50px;
+    @media screen and (orientation: portrait) {
+        width: 90vw;
+        margin: 50px 5vw;
+    }
 }
