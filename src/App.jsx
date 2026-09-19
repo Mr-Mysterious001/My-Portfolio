@@ -1,81 +1,59 @@
-import { useEffect, useMemo, useState } from "react";
+import { useEffect, useState } from "react";
 import {
-  ArrowDownRight, ArrowUpRight, BrainCircuit, ChevronDown, Code2,
-  Database, Menu, Moon, Sparkles,
-  Sun, Terminal, X, ExternalLink, ShieldCheck, Layers3, Mail
+  ArrowUpRight, BrainCircuit, ChevronLeft, ChevronRight, ChevronDown, Code2,
+  Database, Menu, Moon, Sparkles, Sun, Terminal, X, ShieldCheck, Layers3
 } from "lucide-react";
-
-const projects = [
-  {
-    number: "01",
-    title: "Digital Twin for UAV",
-    eyebrow: "Simulation / AI / Cybersecurity",
-    description:
-      "Simulation-first UAV telemetry and engine-monitoring concept for predictive maintenance, mission planning and cybersecurity dataset generation.",
-    tags: ["Python", "FastAPI", "ArduPilot", "ML"],
-    icon: <ShieldCheck size={21} />,
-    tone: "cyan"
-  },
-  {
-    number: "02",
-    title: "TB Burden Country",
-    eyebrow: "Data Visualization",
-    description:
-      "Interactive dashboard exploring tuberculosis burden across countries and years, combining cleaned datasets with analytical visualizations.",
-    tags: ["Python", "Pandas", "Plotly", "Streamlit"],
-    icon: <Database size={21} />,
-    tone: "violet"
-  },
-  {
-    number: "03",
-    title: "Jarvis Assistant",
-    eyebrow: "Open Source / AI",
-    description:
-      "An assistant concept for Linux and Hyprland workflows, designed around local/cloud LLMs and a contribution-friendly open-source structure.",
-    tags: ["Python", "LLM", "Linux", "Open Source"],
-    icon: <BrainCircuit size={21} />,
-    tone: "green"
-  },
-  {
-    number: "04",
-    title: "California Housing",
-    eyebrow: "Machine Learning",
-    description:
-      "End-to-end regression workflow covering exploration, preprocessing, feature engineering and model evaluation with scikit-learn.",
-    tags: ["Python", "Scikit-learn", "Pandas", "Matplotlib"],
-    icon: <Layers3 size={21} />,
-    tone: "amber"
-  }
-];
-
-const skills = [
-  ["Python", "ML · Data Science"],
-  ["Java", "DSA · OOP"],
-  ["C", "Systems · DSA"],
-  ["JavaScript", "Web · UI"],
-  ["React", "Frontend"],
-  ["Tailwind", "Design Systems"],
-  ["Pandas", "Data Analysis"],
-  ["Scikit-learn", "Machine Learning"],
-  ["PyTorch", "Deep Learning"],
-  ["SQL", "MySQL"],
-  ["Git / GitHub", "Open Source"],
-  ["Linux", "Arch · CLI"]
-];
-
-const milestones = [
-  ["2020", "Started coding with Java during school."],
-  ["2023", "Started B.Tech CSE at Netaji Subhash Engineering College."],
-  ["2024", "Expanded into web development, hackathons and open source."],
-  ["2025", "Moved deeper into Data Science, AI/ML and research-oriented work."],
-  ["2026", "Building simulations, research systems and real client projects."]
-];
+import { portfolio } from "./data";
 
 function LogoMark() {
+  return <span className="logo-mark" aria-hidden="true">AC</span>;
+}
+
+const iconMap = {
+  shield: <ShieldCheck size={21} />,
+  database: <Database size={21} />,
+  brain: <BrainCircuit size={21} />,
+  layers: <Layers3 size={21} />
+};
+
+function HorizontalSlider({ items, className = "", renderItem, label }) {
+  const [index, setIndex] = useState(0);
+  const visible = Math.max(1, Math.min(3, Math.floor(items.length / 2)));
+  const maxIndex = Math.max(0, items.length - visible);
+
+  const move = (direction) => {
+    setIndex((current) => Math.max(0, Math.min(maxIndex, current + direction)));
+  };
+
   return (
-    <span className="logo-mark" aria-hidden="true">
-      AC
-    </span>
+    <div className={`slider-shell ${className}`}>
+      <div className="slider-controls">
+        <span>{label}</span>
+        <div>
+          <button onClick={() => move(-1)} disabled={index === 0} aria-label="Previous">
+            <ChevronLeft size={16} />
+          </button>
+          <button onClick={() => move(1)} disabled={index === maxIndex} aria-label="Next">
+            <ChevronRight size={16} />
+          </button>
+        </div>
+      </div>
+      <div className="slider-viewport">
+        <div className="slider-track" style={{ transform: `translateX(calc(-${index} * (var(--slide-width) + var(--slide-gap)))` }}>
+          {items.map((item, itemIndex) => renderItem(item, itemIndex))}
+        </div>
+      </div>
+      <div className="slider-dots">
+        {items.map((_, dotIndex) => (
+          <button
+            key={dotIndex}
+            className={dotIndex === index ? "active" : ""}
+            onClick={() => setIndex(Math.min(dotIndex, maxIndex))}
+            aria-label={`Go to slide ${dotIndex + 1}`}
+          />
+        ))}
+      </div>
+    </div>
   );
 }
 
@@ -98,7 +76,7 @@ function App() {
   }, [dark]);
 
   useEffect(() => {
-    const sections = ["home", "about", "work", "skills", "journey", "contact"];
+    const sections = portfolio.nav.map(([id]) => id);
     const observer = new IntersectionObserver(
       (entries) => {
         const visible = entries
@@ -127,17 +105,6 @@ function App() {
     });
   }, []);
 
-  const nav = useMemo(
-    () => [
-      ["home", "Home"],
-      ["about", "About"],
-      ["work", "Work"],
-      ["skills", "Stack"],
-      ["journey", "Journey"],
-      ["contact", "Contact"]
-    ],
-    []
-  );
 
   const sendChat = async (event) => {
     event?.preventDefault();
@@ -186,7 +153,7 @@ function App() {
           </a>
 
           <div className="desktop-nav">
-            {nav.map(([id, label]) => (
+            {portfolio.nav.map(([id, label]) => (
               <a key={id} href={`#${id}`} className={active === id ? "nav-link active" : "nav-link"}>
                 {label}
               </a>
@@ -214,7 +181,7 @@ function App() {
 
         {menu && (
           <div className="mobile-menu">
-            {nav.map(([id, label]) => (
+            {portfolio.nav.map(([id, label]) => (
               <a key={id} href={`#${id}`} onClick={() => setMenu(false)}>
                 {label}
               </a>
@@ -320,11 +287,16 @@ function App() {
               version, then iterate.
             </p>
 
-            <div className="stat-row">
-              <div className="stat glass-card"><strong>8.07</strong><span>Current CGPA*</span></div>
-              <div className="stat glass-card"><strong>2023—27</strong><span>B.Tech CSE</span></div>
-              <div className="stat glass-card"><strong>AI/ML</strong><span>Current direction</span></div>
-            </div>
+            <HorizontalSlider
+              items={portfolio.stats}
+              label="At a glance"
+              className="stats-carousel"
+              renderItem={(stat) => (
+                <div className="stat glass-card slide-card" key={stat.label}>
+                  <strong>{stat.value}</strong><span>{stat.label}</span>
+                </div>
+              )}
+            />
           </div>
         </section>
 
@@ -337,12 +309,12 @@ function App() {
             <p className="heading-note">A few things I’ve been building lately.</p>
           </div>
 
-          <div className="project-grid">
-            {projects.map((project) => (
+          <div className="project-slider-grid">
+            {portfolio.projects.map((project) => (
               <article key={project.title} className={`project-card tone-${project.tone}`}>
                 <div className="project-glow" />
                 <div className="project-top">
-                  <div className="project-icon">{project.icon}</div>
+                  <div className="project-icon">{iconMap[project.icon]}</div>
                   <span>{project.number}</span>
                 </div>
                 <div className="project-content">
@@ -370,8 +342,8 @@ function App() {
             </p>
           </div>
 
-          <div className="skill-grid">
-            {skills.map(([name, description], index) => (
+          <div className="skill-slider-grid">
+            {portfolio.skills.map(([name, description], index) => (
               <div className="skill-card glass-card" key={name} style={{ "--delay": `${index * 40}ms` }}>
                 <div className="skill-index">0{index + 1}</div>
                 <Code2 size={17} />
@@ -388,14 +360,18 @@ function App() {
             <h2 className="display-title">Still<br /><span>becoming.</span></h2>
           </div>
 
-          <div className="timeline">
-            {milestones.map(([year, text]) => (
-              <div className="timeline-item" key={year}>
-                <div className="timeline-year">{year}</div>
-                <div className="timeline-track"><span /></div>
-                <p>{text}</p>
-              </div>
-            ))}
+          <div className="timeline-slider">
+            <HorizontalSlider
+              items={portfolio.milestones}
+              label="Timeline"
+              className="timeline-carousel"
+              renderItem={([year, text]) => (
+                <div className="timeline-card glass-card slide-card" key={year}>
+                  <span>{year}</span>
+                  <p>{text}</p>
+                </div>
+              )}
+            />
           </div>
         </section>
 
