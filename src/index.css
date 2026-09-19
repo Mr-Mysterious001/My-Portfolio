@@ -101,7 +101,7 @@ button, input { font: inherit; }
   radial-gradient(circle at 50% 50%, rgba(113,239,255,.11), transparent 28%),
   radial-gradient(circle at 50% 50%, rgba(160,136,255,.06), transparent 46%),
   rgba(255,255,255,.018); }
-.avatar-ring { position: relative; z-index: 2; padding: 5px; border-radius: 999px; background: conic-gradient(from 0deg, var(--cyan), #876aff, #2ce1ad, var(--cyan)); animation: rotate 10s linear infinite; }
+.avatar-ring { position: relative; z-index: 2; padding: 5px; border-radius: 999px; background: conic-gradient(from 0deg, var(--cyan), #876aff, #2ce1ad, var(--cyan)); }
 .avatar-ring img { display: block; width: 238px; height: 238px; border-radius: 50%; object-fit: cover; border: 5px solid #080a0f; }
 @keyframes rotate { to { transform: rotate(360deg); } }
 .orbit { position: absolute; border: 1px solid rgba(128,230,255,.13); border-radius: 50%; animation: orbit 11s linear infinite; }
@@ -139,7 +139,29 @@ button, input { font: inherit; }
 .section-heading { display: flex; align-items: end; justify-content: space-between; gap: 35px; margin-bottom: 45px; }
 .heading-note { max-width: 230px; margin: 0 0 7px; color: var(--muted-2); font-size: 11px; line-height: 1.6; }
 
-.project-grid { display: grid; grid-template-columns: repeat(2,1fr); gap: 14px; }
+.slider-shell { --slide-gap: 12px; --slide-width: calc((100% - (var(--slides-visible, 2) - 1) * var(--slide-gap)) / var(--slides-visible, 2)); width: 100%; }
+.slider-controls { display:flex; align-items:center; justify-content:space-between; margin-bottom:12px; color:var(--muted-2); font:600 9px "Space Grotesk"; letter-spacing:.14em; text-transform:uppercase; }
+.slider-controls > div { display:flex; gap:6px; }
+.slider-controls button { display:grid; place-items:center; width:34px; height:34px; border:1px solid var(--line); border-radius:10px; background:var(--surface); color:var(--text); cursor:pointer; transition:.2s; }
+.slider-controls button:hover:not(:disabled) { background:var(--surface-strong); transform:translateY(-1px); }
+.slider-controls button:disabled { opacity:.28; cursor:not-allowed; }
+.slider-viewport { overflow:hidden; width:100%; }
+.slider-track { display:flex; gap:var(--slide-gap); transition:transform .45s cubic-bezier(.2,.8,.2,1); will-change:transform; }
+.slide-card { flex:0 0 var(--slide-width); min-width:var(--slide-width); }
+.slider-dots { display:flex; gap:5px; justify-content:center; margin-top:13px; }
+.slider-dots button { width:5px; height:5px; padding:0; border:0; border-radius:99px; background:var(--muted-2); opacity:.45; cursor:pointer; transition:.2s; }
+.slider-dots button.active { width:18px; opacity:1; background:var(--cyan); }
+.projects-carousel { --slides-visible: 2; }
+.skills-carousel { --slides-visible: 3; }
+.stats-carousel { --slides-visible: 3; margin-top:34px; }
+.timeline-carousel { --slides-visible: 2; }
+.projects-carousel .slide-card { min-height:470px; }
+.skills-carousel .slide-card { min-height:135px; }
+.timeline-card { min-height:180px; padding:22px; border-radius:20px; }
+.timeline-card > span { display:block; color:var(--cyan); font:700 22px "Space Grotesk"; }
+.timeline-card p { margin:15px 0 0; color:var(--muted); font-size:13px; line-height:1.7; }
+.stats-carousel .slide-card { padding:19px; border-radius:19px; }
+\n
 .project-card { position: relative; min-height: 470px; overflow: hidden; padding: 25px; border: 1px solid var(--line); border-radius: 26px; background: rgba(255,255,255,.025); isolation: isolate; transition: transform .45s ease, border-color .45s ease, box-shadow .45s ease; }
 .project-card::before { content: ""; position: absolute; inset: 0; background: radial-gradient(340px circle at var(--mx,50%) var(--my,50%), rgba(255,255,255,.09), transparent 44%); opacity: 0; transition: opacity .35s; pointer-events: none; z-index: -1; }
 .project-card:hover { transform: translateY(-7px); border-color: rgba(255,255,255,.15); box-shadow: 0 28px 75px rgba(0,0,0,.2); }
@@ -160,7 +182,7 @@ button, input { font: inherit; }
 .chip-row { display: flex; flex-wrap: wrap; gap: 6px; margin-top: 16px; }
 .chip-row span { padding: 6px 8px; border: 1px solid var(--line); border-radius: 9px; background: var(--surface); color: var(--muted-2); font-size: 9px; }
 
-.skill-grid { display: grid; grid-template-columns: repeat(3,1fr); gap: 9px; }
+
 .skill-card { position: relative; min-height: 135px; padding: 17px; animation: rise .65s both; animation-delay: var(--delay); }
 @keyframes rise { from { opacity: 0; transform: translateY(14px); } to { opacity: 1; transform: none; } }
 .skill-index { position: absolute; right: 13px; top: 12px; color: var(--muted-2); font-size: 8px; }
@@ -168,12 +190,12 @@ button, input { font: inherit; }
 .skill-card strong { display: block; margin-top: 28px; font: 600 15px "Space Grotesk"; }
 .skill-card span { display: block; margin-top: 4px; color: var(--muted-2); font-size: 9px; }
 
-.timeline { border-left: 1px solid var(--line); }
-.timeline-item { position: relative; display: grid; grid-template-columns: 60px 20px 1fr; gap: 14px; padding: 0 0 34px 17px; }
-.timeline-year { color: var(--muted-2); font: 600 11px "Space Grotesk"; }
-.timeline-track { position: relative; }
-.timeline-track span { position: absolute; left: -22px; top: 3px; width: 7px; height: 7px; border-radius: 50%; background: var(--cyan); box-shadow: 0 0 16px rgba(115,239,255,.75); }
-.timeline-item p { margin: 0; color: var(--muted); font-size: 13px; line-height: 1.7; }
+
+
+
+
+
+
 
 .contact-section { padding-bottom: 55px; }
 .contact-card { position: relative; overflow: hidden; display: grid; grid-template-columns: 1.2fr .8fr; gap: 40px; padding: 45px; }
@@ -228,7 +250,7 @@ button, input { font: inherit; }
   .floating-chip { display: none; }
   .scroll-cue { display: none; }
   .section-heading { align-items: start; flex-direction: column; margin-bottom: 30px; }
-  .project-grid, .skill-grid, .stat-row { grid-template-columns: 1fr; }
+  .slider-shell { --slide-width: 86%; }\n  .projects-carousel, .skills-carousel, .stats-carousel, .timeline-carousel { --slides-visible: 1; }
   .project-card { min-height: 420px; }
   .contact-card { padding: 27px; }
   .footer { flex-direction: column; }
