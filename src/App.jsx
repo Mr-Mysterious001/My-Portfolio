@@ -408,7 +408,7 @@ function App() {
                 <div className="orbit orbit-b" />
                 <div className="orbit orbit-c" />
                 <div className="avatar-ring">
-                  <img src="/self.png" alt="Akshay Chandra" />
+                  <img src="/assets/self.png" alt="Akshay Chandra" />
                 </div>
               </div>
 
