@@ -1,8 +1,8 @@
 import { useEffect, useMemo, useState } from "react";
 import {
-  ArrowUpRight, BrainCircuit, ChevronDown, Code2, Github, GraduationCap,
-  Linkedin, Mail, Menu, Moon, Sparkles, Terminal, X, Sun, ExternalLink,
-  Database, Cpu, ShieldCheck, Layers3
+  ArrowDownRight, ArrowUpRight, BrainCircuit, ChevronDown, Code2,
+  Database, Github, GraduationCap, Linkedin, Menu, Moon, Sparkles,
+  Sun, Terminal, X, ExternalLink, ShieldCheck, Layers3, Mail
 } from "lucide-react";
 
 const socials = {
@@ -13,238 +13,471 @@ const socials = {
 
 const projects = [
   {
+    number: "01",
     title: "Digital Twin for UAV",
-    label: "AI / Simulation / Cybersecurity",
-    description: "A simulation-first digital twin concept for UAV engine and flight telemetry, designed to generate realistic tabular and visual data for monitoring and security research.",
+    eyebrow: "Simulation / AI / Cybersecurity",
+    description:
+      "Simulation-first UAV telemetry and engine-monitoring concept for predictive maintenance, mission planning and cybersecurity dataset generation.",
     tags: ["Python", "FastAPI", "ArduPilot", "ML"],
-    icon: <Cpu size={22}/>,
-    accent: "from-cyan-400/30 to-blue-500/5"
+    icon: <ShieldCheck size={21} />,
+    tone: "cyan"
   },
   {
+    number: "02",
     title: "TB Burden Country",
-    label: "Data Visualization",
-    description: "An interactive Streamlit dashboard exploring global tuberculosis burden across countries and years, with cleaned data, Plotly visualizations and uncertainty bounds.",
+    eyebrow: "Data Visualization",
+    description:
+      "Interactive dashboard exploring tuberculosis burden across countries and years, combining cleaned datasets with analytical visualizations.",
     tags: ["Python", "Pandas", "Plotly", "Streamlit"],
-    icon: <Database size={22}/>,
-    accent: "from-violet-400/30 to-fuchsia-500/5"
+    icon: <Database size={21} />,
+    tone: "violet"
   },
   {
+    number: "03",
     title: "Jarvis Assistant",
-    label: "Open Source / AI",
-    description: "An open-source assistant for Arch + Hyprland setups that can work with local or cloud LLMs and is structured for community contributions.",
+    eyebrow: "Open Source / AI",
+    description:
+      "An assistant concept for Linux and Hyprland workflows, designed around local/cloud LLMs and a contribution-friendly open-source structure.",
     tags: ["Python", "LLM", "Linux", "Open Source"],
-    icon: <BrainCircuit size={22}/>,
-    accent: "from-emerald-400/30 to-cyan-500/5"
+    icon: <BrainCircuit size={21} />,
+    tone: "green"
   },
   {
-    title: "California House Prediction",
-    label: "Machine Learning",
-    description: "A complete beginner-to-model ML workflow covering EDA, feature engineering and regression with scikit-learn and pandas.",
+    number: "04",
+    title: "California Housing",
+    eyebrow: "Machine Learning",
+    description:
+      "End-to-end regression workflow covering exploration, preprocessing, feature engineering and model evaluation with scikit-learn.",
     tags: ["Python", "Scikit-learn", "Pandas", "Matplotlib"],
-    icon: <Layers3 size={22}/>,
-    accent: "from-amber-300/25 to-orange-500/5"
+    icon: <Layers3 size={21} />,
+    tone: "amber"
   }
 ];
 
 const skills = [
-  ["Python","ML • Data Science"],["Java","DSA • OOP"],["C","Systems • DSA"],
-  ["JavaScript","Web • UI"],["React","Frontend"],["Tailwind","Design Systems"],
-  ["Pandas","Data Analysis"],["Scikit-learn","Machine Learning"],
-  ["PyTorch","Deep Learning"],["Git / GitHub","Open Source"],["Linux","Arch • CLI"],["SQL","MySQL"]
+  ["Python", "ML · Data Science"],
+  ["Java", "DSA · OOP"],
+  ["C", "Systems · DSA"],
+  ["JavaScript", "Web · UI"],
+  ["React", "Frontend"],
+  ["Tailwind", "Design Systems"],
+  ["Pandas", "Data Analysis"],
+  ["Scikit-learn", "Machine Learning"],
+  ["PyTorch", "Deep Learning"],
+  ["SQL", "MySQL"],
+  ["Git / GitHub", "Open Source"],
+  ["Linux", "Arch · CLI"]
 ];
 
-function Glass({children, className=""}) {
-  return <div className={`glass rounded-3xl ${className}`}>{children}</div>;
+const milestones = [
+  ["2020", "Started coding with Java during school."],
+  ["2023", "Started B.Tech CSE at Netaji Subhash Engineering College."],
+  ["2024", "Expanded into web development, hackathons and open source."],
+  ["2025", "Moved deeper into Data Science, AI/ML and research-oriented work."],
+  ["2026", "Building simulations, research systems and real client projects."]
+];
+
+function LogoMark() {
+  return (
+    <span className="logo-mark" aria-hidden="true">
+      AC
+    </span>
+  );
 }
 
 function App() {
-  const [dark, setDark] = useState(true);
+  const [dark, setDark] = useState(() => localStorage.getItem("theme") !== "light");
   const [menu, setMenu] = useState(false);
   const [active, setActive] = useState("home");
   const [chatOpen, setChatOpen] = useState(false);
   const [chatInput, setChatInput] = useState("");
   const [messages, setMessages] = useState([
-    {role:"bot", text:"Hi. I’m Akshay’s portfolio assistant. Ask me about his projects, skills, research, or journey."}
+    {
+      role: "bot",
+      text: "Hi. I’m Akshay’s portfolio assistant. Ask about his work, stack, journey or research direction."
+    }
   ]);
 
   useEffect(() => {
     document.documentElement.classList.toggle("light", !dark);
-    const sections = ["home","about","work","skills","journey","contact"];
-    const observer = new IntersectionObserver((entries) => {
-      const visible = entries.filter(e=>e.isIntersecting).sort((a,b)=>b.intersectionRatio-a.intersectionRatio)[0];
-      if (visible) setActive(visible.target.id);
-    }, {rootMargin:"-30% 0px -55% 0px", threshold:[0,.2,.5,1]});
-    sections.forEach(id => document.getElementById(id) && observer.observe(document.getElementById(id)));
+    localStorage.setItem("theme", dark ? "dark" : "light");
+  }, [dark]);
+
+  useEffect(() => {
+    const sections = ["home", "about", "work", "skills", "journey", "contact"];
+    const observer = new IntersectionObserver(
+      (entries) => {
+        const visible = entries
+          .filter((entry) => entry.isIntersecting)
+          .sort((a, b) => b.intersectionRatio - a.intersectionRatio)[0];
+        if (visible) setActive(visible.target.id);
+      },
+      { rootMargin: "-30% 0px -55% 0px", threshold: [0.1, 0.35, 0.6] }
+    );
+    sections.forEach((id) => {
+      const node = document.getElementById(id);
+      if (node) observer.observe(node);
+    });
     return () => observer.disconnect();
   }, []);
 
-  const sendChat = async (e) => {
-    e?.preventDefault();
-    const q = chatInput.trim();
-    if (!q) return;
-    setMessages(m => [...m, {role:"user", text:q}]);
+  useEffect(() => {
+    document.querySelectorAll(".project-card").forEach((card) => {
+      const move = (event) => {
+        const rect = card.getBoundingClientRect();
+        card.style.setProperty("--mx", `${event.clientX - rect.left}px`);
+        card.style.setProperty("--my", `${event.clientY - rect.top}px`);
+      };
+      card.addEventListener("pointermove", move);
+      return () => card.removeEventListener("pointermove", move);
+    });
+  }, []);
+
+  const nav = useMemo(
+    () => [
+      ["home", "Home"],
+      ["about", "About"],
+      ["work", "Work"],
+      ["skills", "Stack"],
+      ["journey", "Journey"],
+      ["contact", "Contact"]
+    ],
+    []
+  );
+
+  const sendChat = async (event) => {
+    event?.preventDefault();
+    const question = chatInput.trim();
+    if (!question) return;
+    setMessages((items) => [...items, { role: "user", text: question }]);
     setChatInput("");
+
     try {
       const response = await fetch("/api/chat", {
-        method:"POST",
-        headers:{"Content-Type":"application/json"},
-        body:JSON.stringify({message:q})
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ message: question })
       });
       const data = await response.json();
-      setMessages(m => [...m, {role:"bot", text:data.answer || "I couldn't answer that right now."}]);
+      setMessages((items) => [
+        ...items,
+        {
+          role: "bot",
+          text: data.answer || "I couldn’t answer that right now."
+        }
+      ]);
     } catch {
-      setMessages(m => [...m, {role:"bot", text:"The assistant backend is unavailable. Please try again in a moment."}]);
+      setMessages((items) => [
+        ...items,
+        {
+          role: "bot",
+          text: "The assistant backend is unavailable right now."
+        }
+      ]);
     }
   };
 
-  const nav = useMemo(()=>[
-    ["home","Home"],["about","About"],["work","Work"],["skills","Stack"],["journey","Journey"],["contact","Contact"]
-  ],[]);
-
   return (
-    <div className="min-h-screen overflow-x-hidden bg-[#050507] text-white transition-colors duration-500">
-      <div className="noise"/>
-      <div className="orb orb-a"/><div className="orb orb-b"/><div className="orb orb-c"/>
+    <div className="app">
+      <div className="ambient ambient-1" />
+      <div className="ambient ambient-2" />
+      <div className="ambient ambient-3" />
+      <div className="grain" />
 
-      <header className="fixed inset-x-0 top-0 z-50 px-4 pt-4 md:px-8">
-        <nav className="mx-auto flex max-w-7xl items-center justify-between rounded-2xl border border-white/10 bg-black/45 px-4 py-3 shadow-2xl shadow-black/20 backdrop-blur-2xl">
-          <a href="#home" className="group flex items-center gap-3">
-            <span className="grid h-9 w-9 place-items-center rounded-xl bg-white text-sm font-black text-black">AC</span>
-            <span className="hidden font-semibold tracking-tight sm:block">Akshay Chandra<span className="text-cyan-300">.</span></span>
+      <header className="topbar">
+        <nav className="nav-shell">
+          <a href="#home" className="brand" aria-label="Akshay Chandra home">
+            <LogoMark />
+            <span>akshay<span className="muted-cyan">.dev</span></span>
           </a>
-          <div className="hidden items-center gap-1 md:flex">
-            {nav.map(([id,label])=><a key={id} href={`#${id}`} className={`nav-link ${active===id?"active":""}`}>{label}</a>)}
+
+          <div className="desktop-nav">
+            {nav.map(([id, label]) => (
+              <a key={id} href={`#${id}`} className={active === id ? "nav-link active" : "nav-link"}>
+                {label}
+              </a>
+            ))}
           </div>
-          <div className="flex items-center gap-2">
-            <button aria-label="Toggle theme" onClick={()=>setDark(v=>!v)} className="icon-btn">{dark?<Sun size={17}/>:<Moon size={17}/>}</button>
-            <button aria-label="Open menu" onClick={()=>setMenu(v=>!v)} className="icon-btn md:hidden">{menu?<X size={18}/>:<Menu size={18}/>}</button>
-            <a href="#contact" className="hidden rounded-xl bg-white px-4 py-2 text-sm font-semibold text-black transition hover:scale-[1.03] sm:block">Let’s talk</a>
+
+          <div className="nav-actions">
+            <button
+              className="icon-button"
+              aria-label="Toggle theme"
+              onClick={() => setDark((value) => !value)}
+            >
+              {dark ? <Sun size={17} /> : <Moon size={17} />}
+            </button>
+            <a className="nav-cta" href="#contact">Let’s talk <ArrowUpRight size={15} /></a>
+            <button
+              className="icon-button mobile-only"
+              aria-label="Toggle navigation"
+              onClick={() => setMenu((value) => !value)}
+            >
+              {menu ? <X size={18} /> : <Menu size={18} />}
+            </button>
           </div>
         </nav>
-        {menu && <div className="mx-auto mt-2 max-w-7xl rounded-2xl border border-white/10 bg-black/80 p-3 backdrop-blur-2xl md:hidden">
-          {nav.map(([id,label])=><a onClick={()=>setMenu(false)} key={id} href={`#${id}`} className="block rounded-xl px-4 py-3 text-sm text-white/70 hover:bg-white/10 hover:text-white">{label}</a>)}
-        </div>}
+
+        {menu && (
+          <div className="mobile-menu">
+            {nav.map(([id, label]) => (
+              <a key={id} href={`#${id}`} onClick={() => setMenu(false)}>
+                {label}
+              </a>
+            ))}
+          </div>
+        )}
       </header>
 
       <main>
-        <section id="home" className="relative mx-auto flex min-h-screen max-w-7xl items-center px-5 pb-20 pt-32 md:px-8">
-          <div className="grid w-full items-center gap-12 lg:grid-cols-[1.25fr_.75fr]">
-            <div>
-              <div className="mb-7 inline-flex items-center gap-2 rounded-full border border-cyan-300/20 bg-cyan-300/5 px-4 py-2 text-xs font-medium text-cyan-200">
-                <span className="pulse-dot"/> Building at the intersection of AI, data & software
-              </div>
-              <h1 className="max-w-5xl text-6xl font-black leading-[.88] tracking-[-.07em] sm:text-7xl lg:text-[7.8rem]">
-                I build<br/><span className="gradient-text">things that</span><br/>think.
-              </h1>
-              <p className="mt-8 max-w-2xl text-base leading-7 text-white/55 sm:text-lg">
-                Computer Science student focused on Data Science & AI/ML — turning messy problems into useful systems, experiments and interfaces.
-              </p>
-              <div className="mt-9 flex flex-wrap gap-3">
-                <a href="#work" className="magnetic-btn">Explore my work <ArrowUpRight size={17}/></a>
-                <a href={socials.github} target="_blank" rel="noreferrer" className="glass-btn"><GithubIcon size={17}/> GitHub</a>
-              </div>
-              <div className="mt-14 flex flex-wrap gap-x-8 gap-y-3 text-xs text-white/40">
-                <span>03+ years learning by building</span><span>AI / ML focused</span><span>Open-source contributor</span>
-              </div>
+        <section id="home" className="hero section">
+          <div className="hero-copy">
+            <div className="status-pill">
+              <span className="status-dot" />
+              Building at the intersection of AI, data & software
             </div>
-            <div className="relative mx-auto w-full max-w-[430px]">
-              <div className="hero-card glass rounded-[2rem] p-3">
-                <div className="relative overflow-hidden rounded-[1.4rem] bg-gradient-to-br from-white/10 to-white/[.02] p-5">
-                  <div className="flex items-center justify-between text-[10px] uppercase tracking-[.25em] text-white/35"><span>akshay.exe</span><span>online</span></div>
-                  <div className="mt-8 flex justify-center">
-                    <div className="avatar-wrap">
-                      <img src="/self.png" alt="Akshay Chandra" className="relative z-10 h-56 w-56 rounded-full object-cover grayscale-[15%]"/>
-                    </div>
-                  </div>
-                  <div className="mt-7">
-                    <div className="text-2xl font-bold tracking-tight">Akshay Chandra</div>
-                    <div className="mt-1 text-sm text-white/45">CSE · Data Science · AI/ML</div>
-                  </div>
-                  <div className="mt-6 grid grid-cols-3 gap-2">
-                    {[["8.07","CGPA*"],["2027","Grad"],["∞","Curiosity"]].map(([a,b])=><div key={b} className="rounded-2xl border border-white/8 bg-white/[.03] p-3"><div className="font-bold">{a}</div><div className="mt-1 text-[10px] text-white/35">{b}</div></div>)}
-                  </div>
+
+            <p className="hero-overline">Computer Science · Data Science · AI/ML</p>
+
+            <h1 className="hero-title">
+              I build
+              <br />
+              <span className="gradient-word">things that</span>
+              <br />
+              think<span className="period">.</span>
+            </h1>
+
+            <p className="hero-description">
+              A CSE student who learns by shipping — ML pipelines, data products,
+              simulations, open-source tools and the occasional late-night experiment.
+            </p>
+
+            <div className="hero-actions">
+              <a href="#work" className="primary-button">
+                Explore work <ArrowUpRight size={17} />
+              </a>
+              <a href={socials.github} target="_blank" rel="noreferrer" className="secondary-button">
+                <Github size={17} /> GitHub
+              </a>
+            </div>
+
+            <div className="hero-meta">
+              <span>2023—27 · B.Tech CSE</span>
+              <span>Open source</span>
+              <span>Research minded</span>
+            </div>
+          </div>
+
+          <div className="hero-stage" aria-label="Interactive portfolio profile card">
+            <div className="hero-card glass-card">
+              <div className="hero-card-top">
+                <span>AKSHAY.EXE</span>
+                <span className="online"><i /> ONLINE</span>
+              </div>
+
+              <div className="orbital-scene">
+                <div className="orbit orbit-a" />
+                <div className="orbit orbit-b" />
+                <div className="orbit orbit-c" />
+                <div className="avatar-ring">
+                  <img src="/self.png" alt="Akshay Chandra" />
                 </div>
               </div>
-              <div className="float-tag tag-one"><Sparkles size={13}/> ML Research</div>
-              <div className="float-tag tag-two"><Terminal size={13}/> Linux</div>
-            </div>
-          </div>
-          <a href="#about" className="absolute bottom-8 left-1/2 -translate-x-1/2 text-white/25 transition hover:text-white/60"><ChevronDown className="animate-bounce"/></a>
-        </section>
 
-        <section id="about" className="section-shell">
-          <div className="section-kicker">01 / About</div>
-          <div className="grid gap-10 lg:grid-cols-[.8fr_1.2fr]">
-            <div><h2 className="display-title">More than<br/><span className="gradient-text">just code.</span></h2></div>
-            <div className="max-w-3xl">
-              <p className="text-xl leading-9 text-white/70 md:text-2xl">I’m a B.Tech CSE student at Netaji Subhash Engineering College, exploring how software, data and machine learning can become real products.</p>
-              <p className="mt-7 leading-7 text-white/45">I learn fastest by building: dashboards, ML pipelines, open-source tools, simulations and web experiences. Along the way I’ve worked with student communities, hackathons and collaborative projects.</p>
-              <div className="mt-8 grid gap-3 sm:grid-cols-3">
-                {[["2023—27","B.Tech CSE"],["8.07","5th sem CGPA*"],["Top 50","SIH’24 qualifier"]].map(([a,b])=><Glass key={b} className="p-5"><div className="text-2xl font-bold">{a}</div><div className="mt-1 text-xs text-white/35">{b}</div></Glass>)}
+              <div className="hero-card-bottom">
+                <div>
+                  <div className="card-name">Akshay Chandra</div>
+                  <div className="card-role">CSE · Data Science · AI/ML</div>
+                </div>
+                <div className="mini-grid">
+                  <div><strong>8.07</strong><span>CGPA*</span></div>
+                  <div><strong>2027</strong><span>GRAD</span></div>
+                  <div><strong>∞</strong><span>CURIOSITY</span></div>
+                </div>
               </div>
             </div>
+
+            <div className="floating-chip chip-research">
+              <Sparkles size={14} /> ML Research
+            </div>
+            <div className="floating-chip chip-linux">
+              <Terminal size={14} /> Arch Linux
+            </div>
           </div>
+
+          <a href="#about" className="scroll-cue" aria-label="Scroll to about">
+            <span>SCROLL TO EXPLORE</span>
+            <ChevronDown size={17} />
+          </a>
         </section>
 
-        <section id="work" className="section-shell">
-          <div className="mb-12 flex items-end justify-between gap-5"><div><div className="section-kicker">02 / Selected work</div><h2 className="display-title">Built, tested,<br/><span className="gradient-text">iterated.</span></h2></div><span className="hidden text-xs text-white/30 sm:block">Hover a card</span></div>
-          <div className="grid gap-4 md:grid-cols-2">
-            {projects.map((p,i)=><article key={p.title} className={`project-card group bg-gradient-to-br ${p.accent}`}>
-              <div className="flex items-start justify-between"><span className="grid h-11 w-11 place-items-center rounded-2xl border border-white/10 bg-black/20 text-cyan-200">{p.icon}</span><span className="text-xs text-white/25">0{i+1}</span></div>
-              <div className="mt-20"><div className="mb-3 text-xs uppercase tracking-[.18em] text-white/35">{p.label}</div><h3 className="text-2xl font-bold tracking-tight">{p.title}</h3><p className="mt-3 max-w-lg text-sm leading-6 text-white/45">{p.description}</p></div>
-              <div className="mt-7 flex flex-wrap gap-2">{p.tags.map(t=><span key={t} className="chip">{t}</span>)}</div>
-              <div className="absolute right-7 top-7 opacity-0 transition duration-300 group-hover:opacity-100"><ArrowUpRight/></div>
-            </article>)}
+        <section id="about" className="section split-section reveal">
+          <div>
+            <p className="section-label">01 / ABOUT</p>
+            <h2 className="display-title">More than<br /><span>just code.</span></h2>
           </div>
-        </section>
 
-        <section id="skills" className="section-shell">
-          <div className="section-kicker">03 / Toolkit</div>
-          <div className="grid gap-10 lg:grid-cols-[.65fr_1.35fr]">
-            <div><h2 className="display-title">My<br/><span className="gradient-text">stack.</span></h2><p className="mt-6 max-w-sm leading-7 text-white/40">A practical toolkit that keeps growing — from low-level programming to data pipelines and modern interfaces.</p></div>
-            <div className="grid grid-cols-2 gap-3 sm:grid-cols-3">
-              {skills.map(([name,sub],i)=><div key={name} className="skill-card" style={{"--d":`${i*35}ms`}}><div className="text-lg font-semibold">{name}</div><div className="mt-1 text-[11px] text-white/30">{sub}</div></div>)}
+          <div className="section-content">
+            <p className="lead">
+              I’m a B.Tech CSE student at Netaji Subhash Engineering College,
+              exploring how software, data and machine learning can become useful systems.
+            </p>
+            <p className="body-copy">
+              I learn fastest by building. That has meant data dashboards, ML workflows,
+              web interfaces, Linux tooling, simulation concepts and collaborative projects.
+              The common thread is simple: understand the problem, build the smallest useful
+              version, then iterate.
+            </p>
+
+            <div className="stat-row">
+              <div className="stat glass-card"><strong>8.07</strong><span>Current CGPA*</span></div>
+              <div className="stat glass-card"><strong>2023—27</strong><span>B.Tech CSE</span></div>
+              <div className="stat glass-card"><strong>AI/ML</strong><span>Current direction</span></div>
             </div>
           </div>
         </section>
 
-        <section id="journey" className="section-shell">
-          <div className="section-kicker">04 / Journey</div>
-          <div className="grid gap-12 lg:grid-cols-[1fr_1fr]">
-            <div><h2 className="display-title">Still<br/><span className="gradient-text">becoming.</span></h2></div>
-            <div className="timeline">
-              {[["2020","Started coding with Java during school."],["2023","Started B.Tech CSE at NSEC, Kolkata."],["2024","Hacktoberfest, hackathons and deeper web development."],["2025","Moved deeper into Data Science, AI/ML and open source."],["2026","Building research-oriented systems, simulations and real client projects."]].map(([year,text])=><div className="timeline-row" key={year}><div className="timeline-year">{year}</div><div className="timeline-dot"/><p>{text}</p></div>)}
+        <section id="work" className="section reveal">
+          <div className="section-heading">
+            <div>
+              <p className="section-label">02 / SELECTED WORK</p>
+              <h2 className="display-title">Built, tested,<br /><span>iterated.</span></h2>
             </div>
+            <p className="heading-note">A few things I’ve been building lately.</p>
+          </div>
+
+          <div className="project-grid">
+            {projects.map((project) => (
+              <article key={project.title} className={`project-card tone-${project.tone}`}>
+                <div className="project-glow" />
+                <div className="project-top">
+                  <div className="project-icon">{project.icon}</div>
+                  <span>{project.number}</span>
+                </div>
+                <div className="project-content">
+                  <p>{project.eyebrow}</p>
+                  <h3>{project.title}</h3>
+                  <div className="project-line" />
+                  <span className="project-arrow"><ArrowUpRight size={18} /></span>
+                  <p className="project-description">{project.description}</p>
+                  <div className="chip-row">
+                    {project.tags.map((tag) => <span key={tag}>{tag}</span>)}
+                  </div>
+                </div>
+              </article>
+            ))}
           </div>
         </section>
 
-        <section id="contact" className="section-shell pb-28">
-          <Glass className="relative overflow-hidden p-7 md:p-12">
-            <div className="contact-glow"/>
-            <div className="relative z-10 grid items-end gap-10 md:grid-cols-[1fr_auto]">
-              <div><div className="section-kicker">05 / Contact</div><h2 className="display-title max-w-3xl">Have a problem<br/>worth <span className="gradient-text">building?</span></h2><p className="mt-6 max-w-xl text-white/45">I’m open to interesting projects, research conversations, collaborations and opportunities to build something useful.</p></div>
-              <div className="flex flex-wrap gap-2">
-                <a className="glass-btn" href={socials.linkedin} target="_blank" rel="noreferrer"><LinkedinIcon size={17}/> LinkedIn</a>
-                <a className="glass-btn" href={socials.github} target="_blank" rel="noreferrer"><Github size={17}/> GitHub</a>
+        <section id="skills" className="section split-section reveal">
+          <div>
+            <p className="section-label">03 / TOOLKIT</p>
+            <h2 className="display-title">My<br /><span>stack.</span></h2>
+            <p className="body-copy max-copy">
+              A practical toolkit spanning software fundamentals, modern frontend work
+              and machine learning.
+            </p>
+          </div>
+
+          <div className="skill-grid">
+            {skills.map(([name, description], index) => (
+              <div className="skill-card glass-card" key={name} style={{ "--delay": `${index * 40}ms` }}>
+                <div className="skill-index">0{index + 1}</div>
+                <Code2 size={17} />
+                <strong>{name}</strong>
+                <span>{description}</span>
               </div>
+            ))}
+          </div>
+        </section>
+
+        <section id="journey" className="section split-section reveal">
+          <div>
+            <p className="section-label">04 / JOURNEY</p>
+            <h2 className="display-title">Still<br /><span>becoming.</span></h2>
+          </div>
+
+          <div className="timeline">
+            {milestones.map(([year, text]) => (
+              <div className="timeline-item" key={year}>
+                <div className="timeline-year">{year}</div>
+                <div className="timeline-track"><span /></div>
+                <p>{text}</p>
+              </div>
+            ))}
+          </div>
+        </section>
+
+        <section id="contact" className="section reveal contact-section">
+          <div className="contact-card glass-card">
+            <div className="contact-light" />
+            <div className="contact-copy">
+              <p className="section-label">05 / CONTACT</p>
+              <h2 className="display-title">Have a problem<br />worth <span>building?</span></h2>
+              <p className="body-copy">
+                I’m open to interesting projects, research conversations, collaborations
+                and opportunities to make useful things.
+              </p>
             </div>
-          </Glass>
-          <footer className="mt-10 flex flex-col justify-between gap-3 text-xs text-white/25 sm:flex-row"><span>© 2026 Akshay Chandra</span><span>Designed + built with React, Tailwind & CSS.</span></footer>
+
+            <div className="contact-actions">
+              <a href={socials.linkedin} target="_blank" rel="noreferrer" className="secondary-button">
+                <Linkedin size={17} /> LinkedIn
+              </a>
+              <a href={socials.github} target="_blank" rel="noreferrer" className="secondary-button">
+                <Github size={17} /> GitHub
+              </a>
+              <button className="primary-button" onClick={() => setChatOpen(true)}>
+                Ask Akshay AI <BrainCircuit size={17} />
+              </button>
+            </div>
+          </div>
+
+          <footer className="footer">
+            <span>© 2026 Akshay Chandra</span>
+            <span>React · Tailwind · CSS · Node.js</span>
+            <a href={socials.leetcode} target="_blank" rel="noreferrer">LeetCode <ExternalLink size={12} /></a>
+          </footer>
         </section>
       </main>
 
-      <button onClick={()=>setChatOpen(true)} className="chat-launcher" aria-label="Open AI portfolio assistant"><BrainCircuit size={21}/><span>Ask about me</span></button>
+      <button className="chat-launcher" onClick={() => setChatOpen(true)}>
+        <BrainCircuit size={19} />
+        <span>Ask about me</span>
+      </button>
 
-      {chatOpen && <div className="fixed inset-0 z-[80] grid place-items-end p-4 sm:place-items-center sm:p-8">
-        <button aria-label="Close assistant" onClick={()=>setChatOpen(false)} className="absolute inset-0 bg-black/60 backdrop-blur-sm"/>
-        <div className="relative flex h-[min(650px,85vh)] w-full max-w-md flex-col overflow-hidden rounded-3xl border border-white/10 bg-[#0b0b0e] shadow-2xl">
-          <div className="flex items-center justify-between border-b border-white/8 p-5"><div><div className="font-semibold">Akshay AI</div><div className="mt-1 text-xs text-cyan-300/60">portfolio assistant · instant answers</div></div><button onClick={()=>setChatOpen(false)} className="icon-btn"><X size={17}/></button></div>
-          <div className="flex-1 space-y-3 overflow-y-auto p-5">
-            {messages.map((m,i)=><div key={i} className={`max-w-[88%] rounded-2xl px-4 py-3 text-sm leading-6 ${m.role==="bot"?"bg-white/5 text-white/70":"ml-auto bg-cyan-300 text-black"}`}>{m.text}</div>)}
+      {chatOpen && (
+        <div className="chat-overlay">
+          <button className="chat-backdrop" aria-label="Close assistant" onClick={() => setChatOpen(false)} />
+          <div className="chat-window">
+            <div className="chat-header">
+              <div>
+                <strong>Akshay AI</strong>
+                <span>Portfolio assistant</span>
+              </div>
+              <button className="icon-button" onClick={() => setChatOpen(false)} aria-label="Close">
+                <X size={17} />
+              </button>
+            </div>
+            <div className="chat-messages">
+              {messages.map((message, index) => (
+                <div key={index} className={message.role === "bot" ? "bubble bot" : "bubble user"}>
+                  {message.text}
+                </div>
+              ))}
+            </div>
+            <form className="chat-form" onSubmit={sendChat}>
+              <input
+                value={chatInput}
+                onChange={(event) => setChatInput(event.target.value)}
+                placeholder="Ask about projects, skills..."
+                aria-label="Ask the assistant"
+              />
+              <button aria-label="Send"><ArrowUpRight size={17} /></button>
+            </form>
           </div>
-          <form onSubmit={sendChat} className="border-t border-white/8 p-4"><div className="flex gap-2 rounded-2xl border border-white/10 bg-white/[.03] p-2"><input value={chatInput} onChange={e=>setChatInput(e.target.value)} placeholder="Ask something..." className="min-w-0 flex-1 bg-transparent px-2 text-sm outline-none placeholder:text-white/25"/><button className="grid h-9 w-9 place-items-center rounded-xl bg-white text-black"><ArrowUpRight size={17}/></button></div></form>
         </div>
-      </div>}
+      )}
     </div>
   );
 }
