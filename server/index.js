@@ -49,6 +49,10 @@ app.post("/api/chat", (req,res) => {
 
 const dist = path.join(__dirname, "..", "dist");
 app.use(express.static(dist, { maxAge: "1y", immutable: true }));
-app.get("*", (_req,res) => res.sendFile(path.join(dist, "index.html")));
+
+// Express 5 / path-to-regexp compatible SPA fallback.
+app.use((_req, res) => {
+  res.sendFile(path.join(dist, "index.html"));
+});
 
 app.listen(PORT, () => console.log(`Portfolio server running on http://localhost:${PORT}`));
