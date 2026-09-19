@@ -1,16 +1,16 @@
 # Akshay Chandra — Portfolio
 
-Modern React portfolio with a Node.js/Express backend.
+A modern React/Vite portfolio for Akshay Chandra, focused on Data Science, AI/ML, software projects and research.
 
 ## Stack
 
 - React + Vite
 - Tailwind CSS
+- Custom CSS for glassmorphism, depth and motion
 - Node.js + Express
 - Helmet + compression
 - Lucide React
-- Responsive glassmorphism UI
-- Local portfolio assistant API
+- Portfolio assistant API
 
 ## Run locally
 
@@ -35,4 +35,4 @@ The Express server serves the Vite production build and exposes:
 - GET /api/profile
 - POST /api/chat
 
-The assistant API is intentionally provider-neutral, so an LLM provider can be connected later without changing the UI.
+The assistant endpoint is provider-neutral and can be connected to an LLM later without changing the UI.
