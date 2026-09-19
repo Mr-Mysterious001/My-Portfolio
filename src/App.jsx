@@ -309,10 +309,12 @@ function App() {
             <p className="heading-note">A few things I’ve been building lately.</p>
           </div>
 
-          <div className="project-slider-grid">
-            {portfolio.projects.map((project) => (
-              <article key={project.title} className={`project-card tone-${project.tone}`}>
-                <div className="project-glow" />
+          <HorizontalSlider
+            items={portfolio.projects}
+            label="Projects"
+            className="projects-carousel"
+            renderItem={(project) => (
+              <article key={project.title} className={`project-card slide-card tone-${project.tone}`}>
                 <div className="project-top">
                   <div className="project-icon">{iconMap[project.icon]}</div>
                   <span>{project.number}</span>
@@ -323,14 +325,11 @@ function App() {
                   <div className="project-line" />
                   <span className="project-arrow"><ArrowUpRight size={18} /></span>
                   <p className="project-description">{project.description}</p>
-                  <div className="chip-row">
-                    {project.tags.map((tag) => <span key={tag}>{tag}</span>)}
-                  </div>
+                  <div className="chip-row">{project.tags.map((tag) => <span key={tag}>{tag}</span>)}</div>
                 </div>
               </article>
-            ))}
-          </div>
-        </section>
+            )}
+          />
 
         <section id="skills" className="section split-section reveal">
           <div>
@@ -342,17 +341,19 @@ function App() {
             </p>
           </div>
 
-          <div className="skill-slider-grid">
-            {portfolio.skills.map(([name, description], index) => (
-              <div className="skill-card glass-card" key={name} style={{ "--delay": `${index * 40}ms` }}>
-                <div className="skill-index">0{index + 1}</div>
+          <HorizontalSlider
+            items={portfolio.skills}
+            label="Skills"
+            className="skills-carousel"
+            renderItem={([name, description], index) => (
+              <div className="skill-card glass-card slide-card" key={name}>
+                <div className="skill-index">{String(index + 1).padStart(2, "0")}</div>
                 <Code2 size={17} />
                 <strong>{name}</strong>
                 <span>{description}</span>
               </div>
-            ))}
-          </div>
-        </section>
+            )}
+          />
 
         <section id="journey" className="section split-section reveal">
           <div>
