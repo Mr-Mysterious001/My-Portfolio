@@ -141,7 +141,7 @@ function App() {
               </p>
               <div className="mt-9 flex flex-wrap gap-3">
                 <a href="#work" className="magnetic-btn">Explore my work <ArrowUpRight size={17}/></a>
-                <a href={socials.github} target="_blank" rel="noreferrer" className="glass-btn"><Github size={17}/> GitHub</a>
+                <a href={socials.github} target="_blank" rel="noreferrer" className="glass-btn"><GithubIcon size={17}/> GitHub</a>
               </div>
               <div className="mt-14 flex flex-wrap gap-x-8 gap-y-3 text-xs text-white/40">
                 <span>03+ years learning by building</span><span>AI / ML focused</span><span>Open-source contributor</span>
@@ -224,7 +224,7 @@ function App() {
             <div className="relative z-10 grid items-end gap-10 md:grid-cols-[1fr_auto]">
               <div><div className="section-kicker">05 / Contact</div><h2 className="display-title max-w-3xl">Have a problem<br/>worth <span className="gradient-text">building?</span></h2><p className="mt-6 max-w-xl text-white/45">I’m open to interesting projects, research conversations, collaborations and opportunities to build something useful.</p></div>
               <div className="flex flex-wrap gap-2">
-                <a className="glass-btn" href={socials.linkedin} target="_blank" rel="noreferrer"><Linkedin size={17}/> LinkedIn</a>
+                <a className="glass-btn" href={socials.linkedin} target="_blank" rel="noreferrer"><LinkedinIcon size={17}/> LinkedIn</a>
                 <a className="glass-btn" href={socials.github} target="_blank" rel="noreferrer"><Github size={17}/> GitHub</a>
               </div>
             </div>
