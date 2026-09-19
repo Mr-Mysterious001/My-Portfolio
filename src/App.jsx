@@ -78,19 +78,23 @@ function App() {
     return () => observer.disconnect();
   }, []);
 
-  const sendChat = (e) => {
+  const sendChat = async (e) => {
     e?.preventDefault();
     const q = chatInput.trim();
     if (!q) return;
-    const lower = q.toLowerCase();
-    let answer = "Try asking about projects, skills, education, AI/ML, or how to contact Akshay.";
-    if (lower.includes("project")) answer = "Akshay’s highlighted work includes a UAV Digital Twin, TB Burden Country dashboard, Jarvis Assistant, and California House Prediction.";
-    else if (lower.includes("skill") || lower.includes("tech")) answer = "His stack spans Python, Java, C, JavaScript, React, Tailwind, pandas, scikit-learn, PyTorch, SQL, Git/GitHub and Linux.";
-    else if (lower.includes("education") || lower.includes("college")) answer = "Akshay is pursuing B.Tech CSE at Netaji Subhash Engineering College (2023–2027). His LinkedIn lists an 8.07 CGPA as of the 5th semester.";
-    else if (lower.includes("ai") || lower.includes("ml")) answer = "His focus is Data Science and AI/ML, with hands-on work in EDA, regression, dashboards, ML pipelines and research-oriented projects.";
-    else if (lower.includes("contact") || lower.includes("linkedin")) answer = "You can reach Akshay through LinkedIn or GitHub using the links in the contact section.";
-    setMessages(m=>[...m,{role:"user",text:q},{role:"bot",text:answer}]);
+    setMessages(m => [...m, {role:"user", text:q}]);
     setChatInput("");
+    try {
+      const response = await fetch("/api/chat", {
+        method:"POST",
+        headers:{"Content-Type":"application/json"},
+        body:JSON.stringify({message:q})
+      });
+      const data = await response.json();
+      setMessages(m => [...m, {role:"bot", text:data.answer || "I couldn't answer that right now."}]);
+    } catch {
+      setMessages(m => [...m, {role:"bot", text:"The assistant backend is unavailable. Please try again in a moment."}]);
+    }
   };
 
   const nav = useMemo(()=>[
