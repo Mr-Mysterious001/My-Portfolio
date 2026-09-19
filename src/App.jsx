@@ -1,15 +1,9 @@
 import { useEffect, useMemo, useState } from "react";
 import {
   ArrowDownRight, ArrowUpRight, BrainCircuit, ChevronDown, Code2,
-  Database, Github, GraduationCap, Linkedin, Menu, Moon, Sparkles,
+  Database, Menu, Moon, Sparkles,
   Sun, Terminal, X, ExternalLink, ShieldCheck, Layers3, Mail
 } from "lucide-react";
-
-const socials = {
-  github: "https://github.com/Mr-Mysterious001",
-  linkedin: "https://in.linkedin.com/in/akshay-chandra-309449283",
-  leetcode: "https://www.leetcode.com/chandrakshay13"
-};
 
 const projects = [
   {
@@ -256,9 +250,6 @@ function App() {
               <a href="#work" className="primary-button">
                 Explore work <ArrowUpRight size={17} />
               </a>
-              <a href={socials.github} target="_blank" rel="noreferrer" className="secondary-button">
-                <Github size={17} /> GitHub
-              </a>
             </div>
 
             <div className="hero-meta">
@@ -421,12 +412,6 @@ function App() {
             </div>
 
             <div className="contact-actions">
-              <a href={socials.linkedin} target="_blank" rel="noreferrer" className="secondary-button">
-                <Linkedin size={17} /> LinkedIn
-              </a>
-              <a href={socials.github} target="_blank" rel="noreferrer" className="secondary-button">
-                <Github size={17} /> GitHub
-              </a>
               <button className="primary-button" onClick={() => setChatOpen(true)}>
                 Ask Akshay AI <BrainCircuit size={17} />
               </button>
