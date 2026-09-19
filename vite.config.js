@@ -12,6 +12,15 @@ export default defineConfig({
     reportCompressedSize: false,
     chunkSizeWarningLimit: 700
   },
-  server: {\n    port: 5173,\n    strictPort: true,\n    proxy: { "/api": "http://localhost:3000" }\n  },
-  preview: { port: 4173, strictPort: true }
+  server: {
+    port: 5173,
+    strictPort: true,
+    proxy: {
+      "/api": "http://localhost:3000"
+    }
+  },
+  preview: {
+    port: 4173,
+    strictPort: true
+  }
 });
