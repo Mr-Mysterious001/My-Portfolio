@@ -80,11 +80,51 @@ function useMagnetic(strength = 0.35) {
 
 function HorizontalSlider({ items, className = "", renderItem, label }) {
   const [index, setIndex] = useState(0);
+  const [dragPx, setDragPx] = useState(0);
+  const [dragging, setDragging] = useState(false);
+  const viewportRef = useRef(null);
+  const drag = useRef({ startX: 0, active: false, width: 1 });
   const visible = Math.max(1, Math.min(3, Math.floor(items.length / 2)));
   const maxIndex = Math.max(0, items.length - visible);
 
   const move = (direction) => {
     setIndex((current) => Math.max(0, Math.min(maxIndex, current + direction)));
+  };
+
+  const slideSpan = () => {
+    const viewport = viewportRef.current;
+    if (!viewport) return 1;
+    const track = viewport.firstElementChild;
+    const firstSlide = track?.firstElementChild;
+    if (!firstSlide) return viewport.clientWidth || 1;
+    const gap = parseFloat(getComputedStyle(track).columnGap || "0") || 0;
+    return firstSlide.getBoundingClientRect().width + gap;
+  };
+
+  const onDragStart = (event) => {
+    const clientX = event.touches ? event.touches[0].clientX : event.clientX;
+    drag.current = { startX: clientX, active: true, width: slideSpan() };
+    setDragging(true);
+  };
+
+  const onDragMove = (event) => {
+    if (!drag.current.active) return;
+    const clientX = event.touches ? event.touches[0].clientX : event.clientX;
+    let delta = clientX - drag.current.startX;
+    // resist dragging past the ends instead of overshooting
+    if ((index === 0 && delta > 0) || (index === maxIndex && delta < 0)) delta *= 0.35;
+    setDragPx(delta);
+  };
+
+  const onDragEnd = () => {
+    if (!drag.current.active) return;
+    const span = drag.current.width || 1;
+    const threshold = span * 0.18;
+    if (dragPx <= -threshold) move(1);
+    else if (dragPx >= threshold) move(-1);
+    drag.current.active = false;
+    setDragging(false);
+    setDragPx(0);
   };
 
   return (
@@ -100,8 +140,24 @@ function HorizontalSlider({ items, className = "", renderItem, label }) {
           </button>
         </div>
       </div>
-      <div className="slider-viewport">
-        <div className="slider-track" style={{ transform: `translateX(calc(-${index} * (var(--slide-width) + var(--slide-gap)))` }}>
+      <div
+        className={`slider-viewport${dragging ? " dragging" : ""}`}
+        ref={viewportRef}
+        onPointerDown={onDragStart}
+        onPointerMove={onDragMove}
+        onPointerUp={onDragEnd}
+        onPointerLeave={onDragEnd}
+        onTouchStart={onDragStart}
+        onTouchMove={onDragMove}
+        onTouchEnd={onDragEnd}
+      >
+        <div
+          className="slider-track"
+          style={{
+            transform: `translateX(calc(-${index} * (var(--slide-width) + var(--slide-gap)) + ${dragPx}px))`,
+            transition: dragging ? "none" : undefined
+          }}
+        >
           {items.map((item, itemIndex) => renderItem(item, itemIndex))}
         </div>
       </div>

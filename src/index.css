@@ -180,7 +180,9 @@ button, input { font: inherit; }
 .slider-controls button { display:grid; place-items:center; width:34px; height:34px; border:1px solid var(--line); border-radius:10px; background:var(--surface); color:var(--text); cursor:pointer; transition:.2s; }
 .slider-controls button:hover:not(:disabled) { background:var(--surface-strong); transform:translateY(-1px); }
 .slider-controls button:disabled { opacity:.28; cursor:not-allowed; }
-.slider-viewport { overflow:hidden; width:100%; }
+.slider-viewport { overflow:hidden; width:100%; cursor:grab; touch-action:pan-y; }
+.slider-viewport.dragging { cursor:grabbing; }
+.slider-viewport.dragging .slide-card { pointer-events:none; }
 .slider-track { display:flex; gap:var(--slide-gap); transition:transform .45s cubic-bezier(.2,.8,.2,1); will-change:transform; }
 .slide-card { flex:0 0 var(--slide-width); min-width:var(--slide-width); }
 .slider-dots { display:flex; gap:5px; justify-content:center; margin-top:13px; }
