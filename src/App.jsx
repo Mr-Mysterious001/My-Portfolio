@@ -421,7 +421,6 @@ function App() {
           <footer className="footer">
             <span>© 2026 Akshay Chandra</span>
             <span>React · Tailwind · CSS · Node.js</span>
-            <a href={socials.leetcode} target="_blank" rel="noreferrer">LeetCode <ExternalLink size={12} /></a>
           </footer>
         </section>
       </main>
